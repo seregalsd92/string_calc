@@ -1,13 +1,13 @@
 "use strict";
 let counter = {
-
+    // Запуск расчетов и вывод результата.
     startCount(expr) {
         let workStr = expr.replace(/\s/g, '');
         let place = this.bracketsParser(workStr);
         let result = document.getElementById('result');
         result.innerText = 'Результат: ' + place;
     },
-
+    // Рекурсивно парсит скобки от первой правой ')' до ближайшей левой '(' слева и вызывает executor для выражения в скобках
     bracketsParser(workStr) {
         let step1 = workStr.match(/\)/);
         if (step1 != null) {
@@ -22,7 +22,7 @@ let counter = {
         }
         return this.executor(workStr);
     },
-    
+    // Ищет слева на право сперва символы * и /, после + и - и выполняет операцию над ближайшим левым и правым числом. Вызывается рекурсивно, пока не останется одно число.
     executor(workStr) {
         let step2 = workStr.match(/[*/]/);
         if (step2 != null) {
@@ -71,7 +71,7 @@ let counter = {
         }
         return Number(workStr);
     },
-
+    // Возвращает ближайшее к математическому знаку левое и правое числа, а так же крайнюю левую и правую их позиции для дальнейшей обрезки строки.
     getNumsAndPoses(step, minusFlag) {
         let startLeftNumPos = step.index;
         let endRightNumPos = step.index;
